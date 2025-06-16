@@ -133,7 +133,7 @@ def main(input_file, expansion_table, expan_dict=None):
             pass
         new_tail = re.sub(r"\s{2,}", r" ", new_tail)
         line.tail = new_tail
-        new_facs = f"{input_file.replace('.tokenized', '')}{current_facs}"
+        new_facs = f"../{input_file.replace('.tokenized', '').split('/')[-1]}{current_facs}"
         # new_facs = f"{current_facs.replace('.tokenized', '')}"
         line.set("facs", new_facs)
         critical_chars = ["ᵛ","õ","̃","ꝙ","᷑","u̾","ͣ","ꝵ","","ͦ","ꝑ","̾","ͫ","᷒","ꝯ","ͨ","ͤ","ͬ","ͥ","ł","ꝟ","ẜ","ꝓ","ꝗ","Ꝗ","ͩ","⁊","ͧ","ᷤ","ͭ","ᷠ"]
