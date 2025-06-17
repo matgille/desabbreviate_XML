@@ -110,7 +110,7 @@ digest̃a	digestiua
 augm̃tatã	augmentatiua
 plu̾a	plura
 <SOT>dr᷑	~dicitur
-dr᷑	~ditur
+dr᷑	ditur
 baͬ<EOT>	batur~
 datͬ<EOT>	datur~
 <SOT>det̃i	~determi
