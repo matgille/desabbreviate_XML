@@ -1,7 +1,7 @@
 ẽd̾<EOT>	endum~
 rid	ridet
-raˡⁱ<EOT>	rabili
-raˡᵉ<EOT>	rabile
+raˡⁱ<EOT>	rabili~
+raˡᵉ<EOT>	rabile~
 p̃tor	praetor
 <SOT>ppͦ<EOT>	populo
 phᵐ	philosophum
