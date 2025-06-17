@@ -3,7 +3,7 @@ rid	ridet
 raˡⁱ<EOT>	rabili~
 raˡᵉ<EOT>	rabile~
 p̃tor	praetor
-<SOT>ppͦ<EOT>	populo
+<SOT>ppͦ<EOT>	~populo~
 phᵐ	philosophum
 ꝓpõit̃	propositum
 laudaˡᵉ	laudabile
