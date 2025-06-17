@@ -1,6 +1,24 @@
 ẽd̾<EOT>	endum~
 rid	ridet
+raˡⁱ<EOT>	rabili
+raˡᵉ<EOT>	rabile
+p̃tor	praetor
+<SOT>ppͦ<EOT>	populo
+phᵐ	philosophum
+ꝓpõit̃	propositum
+laudaˡᵉ	laudabile
+<SOT>p̃cip	~praecip
+<SOT>p̾cip	~praecip
+<SOT>p̾amb	~preamb
+<SOT>fr̾e<EOT>	~ferre~
+fe̾	fere
+pulcͫ	pulchrum
+tp̃r<EOT>	tempore~
+tpr̃<EOT>	tempore~
+tp̃re<EOT>	tempore~
+tpr̃e<EOT>	tempore~
 p̾n	prin
+<SOT>sapĩa	~sapientia
 beͬ<EOT>	bere~
 n̾al	natural
 eeñcia	essencia
@@ -91,7 +109,8 @@ uxoi̾	uxori
 digest̃a	digestiua
 augm̃tatã	augmentatiua
 plu̾a	plura
-dr᷑	dicitur
+<SOT>dr᷑	~dicitur
+dr᷑	~ditur
 baͬ<EOT>	batur~
 datͬ<EOT>	datur~
 <SOT>det̃i	~determi
@@ -204,7 +223,10 @@ concupisciˡⁱ	concupiscibili
 calidi ͭ ͤ	caliditatem
 n᷑le	naturale
 hab&̃	habent
+Cap<EOT>	Capitulum~
+cap<EOT>	capitulum~
 Cap̃<EOT>	Capitulum~
+cap̃<EOT>	Capitulum~
 intłlecu	intellectu
 <SOT>rͦ<EOT>	~ratio~
 t̃plici	triplici
@@ -744,6 +766,7 @@ xi᷒	ximus
 <SOT>p̾sens<EOT>	~praesens~
 <SOT>pñs<EOT>	~praesens~
 <SOT>p̃sens<EOT>	~praesens~
+<SOT>ppł	~popul
 <SOT>pła	~plura
 <SOT>płi	~pluri
 <SOT>płes<EOT>	~pluries~
