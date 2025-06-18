@@ -120,7 +120,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
         successes = pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
-    print(successes)
+    print(successes[0])
     exit(0)
 
     abbr_as_string = ""
