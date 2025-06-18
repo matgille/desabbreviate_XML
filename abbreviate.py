@@ -125,7 +125,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
 
     zipped = list(zip(new_text_as_list, orig_list))
     random.shuffle(zipped)
-    for abbr_line, orig_line in zipped:
+    for abbr_line, orig_line in tqdm.tqdm(zipped):
         dice_roll = random.random()
         for idx, char in enumerate(abbr_line):
             if dice_roll < omission_rate:
