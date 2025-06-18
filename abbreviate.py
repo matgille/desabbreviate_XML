@@ -59,6 +59,7 @@ def dictify(path):
 
 
 def abbreviate(line, reversed_dict):
+    print(line)
     replacement_rate = 0.95 if random.random() < 0.3 else 0.45
     abbreviated_example = []
     orig_example = []
