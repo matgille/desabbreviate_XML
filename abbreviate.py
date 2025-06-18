@@ -119,7 +119,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         cleaned_list.append(" ".join(interm_list))
     new_text_as_list = []
     orig_list = []
-    with mp.Pool(processes=mp.cpu_count()) as pool:
+    with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
         pool.starmap(abbreviate, cleaned_list)
