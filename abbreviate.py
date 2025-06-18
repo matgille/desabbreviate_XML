@@ -87,6 +87,26 @@ def abbreviate(line, reversed_dict):
     orig_example.append(line)
     return orig_example, abbreviated_example
 
+def create_noise(abbr_line, orig_line):
+    abbr_as_string = ""
+    expansion_as_string = ""
+    dice_roll = random.random()
+    for idx, char in enumerate(abbr_line):
+        if dice_roll < omission_rate:
+            dice_roll = random.random()
+            if dice_roll < .4:
+                try:
+                    abbr_line[idx] = confusion_dict[char]
+                except KeyError:
+                    continue
+    abbr_as_string += " ".join([item for item in abbr_line if item]).strip() + "\n"
+    abbr_as_string = re.sub("\n\s", "\n", abbr_as_string)
+    zipped = list(zip(abbr_line, orig_line))
+    for abbr, orig in zipped:
+        if abbr is not None:
+            expansion_as_string += f"{abbr}\t{orig}\n"
+    return abbr_as_string, expansion_as_string
+
 def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omission_rate=None):
     """
     Produit le corpus abrévié, à partir du dictionnaire.
@@ -112,43 +132,32 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
             example.append("\n")
             interm_list.extend(example)
         cleaned_list.append(" ".join(interm_list))
-    global new_text_as_list
     new_text_as_list = []
-    global orig_list
     orig_list = []
     with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
+        # Sort une liste des sorties sous la forme de liste de liste ici
         examples = pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
+
+    # On rétablit les 2 listes
     for orig, abbr in examples:
         orig_list.append(orig)
         new_text_as_list.append(abbr)
 
 
-    abbr_as_string = ""
-    expansion_as_string = ""
 
     new_text_as_list = clean_list(new_text_as_list)
     orig_list = clean_list(orig_list)
 
     zipped = list(zip(new_text_as_list, orig_list))
     random.shuffle(zipped)
-    for abbr_line, orig_line in tqdm.tqdm(zipped):
-        dice_roll = random.random()
-        for idx, char in enumerate(abbr_line):
-            if dice_roll < omission_rate:
-                dice_roll = random.random()
-                if dice_roll < .4:
-                    try:
-                        abbr_line[idx] = confusion_dict[char]
-                    except KeyError:
-                        continue
-        abbr_as_string += " ".join([item for item in abbr_line if item]).strip() + "\n"
-        abbr_as_string = re.sub("\n\s", "\n", abbr_as_string)
-        zipped = list(zip(abbr_line, orig_line))
-        for abbr, orig in zipped:
-            if abbr is not None:
-                expansion_as_string += f"{abbr}\t{orig}\n"
+    with mp.Pool(processes=16) as pool:
+        # https://www.kite.com/python/answers/how-to-map-a-function-with-
+        # multiple-arguments-to-a-multiprocessing-pool-in-python
+        # Sort une liste des sorties sous la forme de liste de liste ici
+        noised = pool.starmap(create_noise, [(abbr_line, orig_line) for abbr_line, orig_line in zipped])
+    print(noised[0])
     with open(input_file.replace(".txt", ".abbreviated.txt"), "w") as output_file:
         output_file.write(abbr_as_string)
         # output_file.write(f"\n{orig_text}")
