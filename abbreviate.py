@@ -59,7 +59,6 @@ def dictify(path):
 
 
 def abbreviate(line, reversed_dict):
-    print(line)
     replacement_rate = 0.95 if random.random() < 0.3 else 0.45
     abbreviated_example = []
     orig_example = []
@@ -124,7 +123,9 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
         pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
-
+    print(new_text_as_list)
+    print(orig_list)
+    exit(0)
 
     abbr_as_string = ""
     expansion_as_string = ""
