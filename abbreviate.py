@@ -119,9 +119,11 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
     with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
-        successes = pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
-    print(successes[0])
-    exit(0)
+        examples = pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
+    for orig, abbr in examples:
+        orig_list.append(orig)
+        new_text_as_list.append(abbr)
+
 
     abbr_as_string = ""
     expansion_as_string = ""
