@@ -8,7 +8,7 @@ import unicodedata
 import re
 import tqdm
 # import pie
-
+import multiprocessing as mp
 from setuptools import glob
 
 
@@ -29,8 +29,8 @@ def dictify(path):
     """
     Produit un dictionnaire d'abbréviations à partir d'une table de désabreviations
     TODO: gérer la ponctuation.
-    :param path: 
-    :return: 
+    :param path:
+    :return:
     """
     as_dict = dict()
     with open(path, "r") as input_table:
@@ -58,14 +58,48 @@ def dictify(path):
     return as_dict, reversed_dict
 
 
+def abbreviate(line):
+    global orig_list
+    global new_text_as_list
+    replacement_rate = 0.95 if random.random() < 0.3 else 0.45
+    abbreviated_example = []
+    orig_example = []
+    line_to_append = line
+    # On itère sur chaque expression, et on modifie peu à peu le token.
+    replace = random.random()
+    if replace > replacement_rate:
+        abbreviated_example.append(line_to_append)
+        orig_example.append(line)
+        orig_list.append(orig_example)
+        new_text_as_list.append(abbreviated_example)
+        return
+    for expression, replacements in reversed_dict.items():
+        as_regexp = re.compile(expression)
+        if re.search(as_regexp, line_to_append):
+            if len(replacements) == 1:
+                dice_roll = random.random()
+                if dice_roll < replacement_rate:
+                    replaced = re.sub(as_regexp, replacements[0], line_to_append)
+                    line_to_append = replaced
+            else:
+                replace_or_not = random.random()
+                if replace_or_not < replacement_rate:
+                    dice_roll = random.randint(0, len(replacements) - 1)
+                    replaced = re.sub(as_regexp, replacements[dice_roll], line_to_append)
+                    line_to_append = replaced
+    abbreviated_example.append(line_to_append)
+    orig_example.append(line)
+    orig_list.append(orig_example)
+    new_text_as_list.append(abbreviated_example)
+
 def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omission_rate=None):
     """
     Produit le corpus abrévié, à partir du dictionnaire.
     TODO: Une abréviation seulement par mot pour l'instant: voir si on peut aller + loin par de la récursivité
-    :param input_file: 
-    :param expansion_table: 
-    :param expan_dict: 
-    :return: 
+    :param input_file:
+    :param expansion_table:
+    :param expan_dict:
+    :return:
     """
     expansion_table_as_dict, reversed_dict = dictify(expansion_table)
     with open(input_file, "r") as text_to_abbreviate:
@@ -85,37 +119,11 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         cleaned_list.append(" ".join(interm_list))
     new_text_as_list = []
     orig_list = []
-    for line in tqdm.tqdm(cleaned_list):
-        replacement_rate = 0.95 if random.random() < 0.3 else 0.45
-        abbreviated_example = []
-        orig_example = []
-        line_to_append = line
-        # On itère sur chaque expression, et on modifie peu à peu le token.
-        replace = random.random()
-        if replace > replacement_rate:
-            abbreviated_example.append(line_to_append)
-            orig_example.append(line)
-            orig_list.append(orig_example)
-            new_text_as_list.append(abbreviated_example)
-            continue
-        for expression, replacements in reversed_dict.items():
-            as_regexp = re.compile(expression)
-            if re.search(as_regexp, line_to_append):
-                if len(replacements) == 1:
-                    dice_roll = random.random()
-                    if dice_roll < replacement_rate:
-                        replaced = re.sub(as_regexp, replacements[0], line_to_append)
-                        line_to_append = replaced
-                else:
-                    replace_or_not = random.random()
-                    if replace_or_not < replacement_rate:
-                        dice_roll = random.randint(0, len(replacements) - 1)
-                        replaced = re.sub(as_regexp, replacements[dice_roll], line_to_append)
-                        line_to_append = replaced
-        abbreviated_example.append(line_to_append)
-        orig_example.append(line)
-        orig_list.append(orig_example)
-        new_text_as_list.append(abbreviated_example)
+    with mp.Pool(processes=mp.cpu_count()) as pool:
+        # https://www.kite.com/python/answers/how-to-map-a-function-with-
+        # multiple-arguments-to-a-multiprocessing-pool-in-python
+        pool.starmap(abbreviate, cleaned_list)
+
 
     abbr_as_string = ""
     expansion_as_string = ""
