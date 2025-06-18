@@ -99,7 +99,7 @@ def create_noise(abbr_line, orig_line):
                     abbr_line[idx] = confusion_dict[char]
                 except KeyError:
                     continue
-            abbr_as_string += " ".join([item for item in abbr_line if item]).strip() + "\n"
+    abbr_as_string += " ".join([item for item in abbr_line if item]).strip() + "\n"
     abbr_as_string = re.sub("\n\s", "\n", abbr_as_string)
     zipped = list(zip(abbr_line, orig_line))
     for abbr, orig in zipped:
