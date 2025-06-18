@@ -68,9 +68,7 @@ def abbreviate(line, reversed_dict):
     if replace > replacement_rate:
         abbreviated_example.append(line_to_append)
         orig_example.append(line)
-        orig_list.append(orig_example)
-        new_text_as_list.append(abbreviated_example)
-        return
+        return orig_example, abbreviated_example
     for expression, replacements in reversed_dict.items():
         as_regexp = re.compile(expression)
         if re.search(as_regexp, line_to_append):
@@ -87,8 +85,7 @@ def abbreviate(line, reversed_dict):
                     line_to_append = replaced
     abbreviated_example.append(line_to_append)
     orig_example.append(line)
-    orig_list.append(orig_example)
-    new_text_as_list.append(abbreviated_example)
+    return orig_example, abbreviated_example
 
 def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omission_rate=None):
     """
@@ -122,9 +119,8 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
     with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
-        pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
-    print(new_text_as_list)
-    print(orig_list)
+        successes = pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
+    print(successes)
     exit(0)
 
     abbr_as_string = ""
