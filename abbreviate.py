@@ -58,7 +58,7 @@ def dictify(path):
     return as_dict, reversed_dict
 
 
-def abbreviate(line):
+def abbreviate(line, reversed_dict):
     global orig_list
     global new_text_as_list
     replacement_rate = 0.95 if random.random() < 0.3 else 0.45
@@ -122,7 +122,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
     with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
-        pool.starmap(abbreviate, [(line,) for line in cleaned_list])
+        pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
 
 
     abbr_as_string = ""
