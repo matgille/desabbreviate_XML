@@ -157,7 +157,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         # multiple-arguments-to-a-multiprocessing-pool-in-python
         # Sort une liste des sorties sous la forme de liste de liste ici
         noised = pool.starmap(create_noise, [(abbr_line, orig_line) for abbr_line, orig_line in zipped])
-    print(noised[0])
+    print(noised[0:5])
     with open(input_file.replace(".txt", ".abbreviated.txt"), "w") as output_file:
         output_file.write(abbr_as_string)
         # output_file.write(f"\n{orig_text}")
