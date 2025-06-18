@@ -129,10 +129,12 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         dice_roll = random.random()
         for idx, char in enumerate(abbr_line):
             if dice_roll < omission_rate:
-                try:
-                    abbr_line[idx] = confusion_dict[char]
-                except KeyError:
-                    continue
+                dice_roll = random.random()
+                if dice_roll < .4:
+                    try:
+                        abbr_line[idx] = confusion_dict[char]
+                    except KeyError:
+                        continue
         abbr_as_string += " ".join([item for item in abbr_line if item]).strip() + "\n"
         abbr_as_string = re.sub("\n\s", "\n", abbr_as_string)
         zipped = list(zip(abbr_line, orig_line))
@@ -167,7 +169,7 @@ if __name__ == '__main__':
                       "d": "cl",
                       "n": "ri",
                       "m": "ni"}
-    omission_rate = .05
+    omission_rate = .1
 
     my_file = sys.argv[1]
     expansion_table = sys.argv[2]
