@@ -138,7 +138,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
         # Sort une liste des sorties sous la forme de liste de liste ici
-        examples = pool.starmap(abbreviate, [(line, reversed_dict) for line in cleaned_list])
+        examples = pool.starmap(abbreviate, tqdm.tqdm([(line, reversed_dict) for line in cleaned_list], total=len(cleaned_list)))
 
     # On rétablit les 2 listes
     for orig, abbr in examples:
@@ -156,7 +156,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
         # Sort une liste des sorties sous la forme de liste de liste ici
-        noised = pool.starmap(create_noise, [(abbr_line, orig_line) for abbr_line, orig_line in zipped])
+        noised = pool.starmap(create_noise, tqdm.tqdm([(abbr_line, orig_line) for abbr_line, orig_line in zipped], total=len(zipped)))
     abbr_as_string, expansion_as_string = "", ""
     for abbr, expan in noised:
         abbr_as_string += abbr
