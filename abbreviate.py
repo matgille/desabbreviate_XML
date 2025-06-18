@@ -117,7 +117,9 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
             example.append("\n")
             interm_list.extend(example)
         cleaned_list.append(" ".join(interm_list))
+    global new_text_as_list
     new_text_as_list = []
+    global orig_list
     orig_list = []
     with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
