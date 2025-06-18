@@ -122,7 +122,7 @@ def main(input_file, expansion_table, expan_dict=None, confusion_dict=None, omis
     with mp.Pool(processes=16) as pool:
         # https://www.kite.com/python/answers/how-to-map-a-function-with-
         # multiple-arguments-to-a-multiprocessing-pool-in-python
-        pool.starmap(abbreviate, cleaned_list)
+        pool.starmap(abbreviate, [(line,) for line in cleaned_list])
 
 
     abbr_as_string = ""
