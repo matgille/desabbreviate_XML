@@ -4,7 +4,7 @@ rid	ridet
 tl̃es	tales
 Pͣ	Prima
 Scdã	Secunda
-<SOT>p̃di	praedi
+<SOT>p̃di	~praedi
 p̃dc̃i	praedicti
 p̾dc̃i	praedicti
 ꝓpoĩt	proposit
