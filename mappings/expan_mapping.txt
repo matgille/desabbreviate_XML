@@ -29,6 +29,8 @@ pub̾	puber
 eꝯͣr	econtrar
 utłes	utiles
 propinqͣ	propinqua
+<SOT>aĩos	~animos
+<SOT>aĩo	~animo
 aio̾s	animos
 ħund	habund
 hñda	habunda
@@ -1713,3 +1715,4 @@ u̾e	uere
 r̾e	rere
 b̾	ber
 e᷑<EOT>	etur~
+partiˡᵉ	partiale
